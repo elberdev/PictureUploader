@@ -8,8 +8,21 @@ var http = require("http");
 // put the object in a variable, then later called the listen function from
 // the variable. We are also passing in an anonymous function right away as
 // a value which tells our server what to do and how to respond.
-http.createServer(function(request, response) {
+//
+// http.createServer(function(request, response) {
+//   response.writeHead(200, {"Content-Type": "text/plain"});
+//   response.write("Hello World!");
+//   response.end();
+// }).listen(8888);
+
+// this is the non-anonymous way:
+function onRequest(request, response) {
   response.writeHead(200, {"Content-Type": "text/plain"});
   response.write("Hello World!");
   response.end();
-}).listen(8888);
+}
+
+// the onRequest function is a callback function (like a completion block)
+http.createServer(onRequest).listen(8888);
+
+console.log("Server was started.");
