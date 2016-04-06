@@ -32,4 +32,5 @@ function start() {
   console.log("Server was started.");
 }
 
+// this bit makes server.js a module with an accessible start function
 exports.start = start;
