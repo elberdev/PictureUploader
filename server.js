@@ -7,11 +7,21 @@ function start(route, handle) {
 
   // this is the non-anonymous way:
   function onRequest(request, response) {
+    var postData = "";
     // extract the url path name so we can properly route the request
     var pathname = url.parse(request.url).pathname;
     console.log("Request for " + pathname + " received.");
 
-    route(handle, pathname, response);
+    request.setEncoding("utf8");
+
+    request.addListener("data", function(postDataChunk) {
+      postData += postDataChunk;
+      console.log("Receive POST data chunk '" + postDataChunk + "'.");
+    })
+
+    request.addListener("end", function() {
+      route(handle, pathname, response, postData);
+    });
   }
 
   // the onRequest function is a callback function (like a completion block)
