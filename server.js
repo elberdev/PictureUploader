@@ -1,6 +1,7 @@
-// this first line requires the http module that comes with node.js and
-// makes it available through the variable http
+// these lines requires the http and url modules that come with node.js and
+// makes them available through the variable names
 var http = require("http");
+var url  = require("url");
 
 function start() {
   // the createServer function from the http module returns an object with
@@ -18,7 +19,9 @@ function start() {
 
   // this is the non-anonymous way:
   function onRequest(request, response) {
-    console.log("Request received.");
+    // extract the url path name
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
     // 200 is the status code, and the second parameter is the content type of
     // the response
     response.writeHead(200, {"Content-Type": "text/plain"});
@@ -28,7 +31,6 @@ function start() {
 
   // the onRequest function is a callback function (like a completion block)
   http.createServer(onRequest).listen(8888);
-
   console.log("Server was started.");
 }
 
