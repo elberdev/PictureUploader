@@ -2,9 +2,8 @@
 // exec() executes a shell command
 var exec = require("child_process").exec;
 
-function start() {
+function start(response) {
   console.log("Request handler 'start' was called.");
-  var content = "empty";
 
   // // hack together a sleep function in javascript
   // function sleep(milliseconds) {
@@ -16,17 +15,20 @@ function start() {
   // // simulate a blocking operation
   // sleep(10000);
 
+  // an asynchronous operation
   // the anonymous function is a callback function to handle the results
   exec("ls -lah", function(error, stdout, stderr) {
-    content = stdout;
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write(stdout);
+    response.end();
   });
-
-  return content;
 }
 
-function upload() {
+function upload(response) {
   console.log("Request handler 'upload' was called.");
-  return "Hello Upload";
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.write("Hello Upload");
+  response.end();
 }
 
 exports.start  = start;
