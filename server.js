@@ -19,7 +19,7 @@ function start() {
 
   // this is the non-anonymous way:
   function onRequest(request, response) {
-    // extract the url path name
+    // extract the url path name so we can properly route the request
     var pathname = url.parse(request.url).pathname;
     console.log("Request for " + pathname + " received.");
     // 200 is the status code, and the second parameter is the content type of
