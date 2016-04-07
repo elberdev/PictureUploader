@@ -15,11 +15,13 @@ function start(route, handle) {
     request.setEncoding("utf8");
 
     request.addListener("data", function(postDataChunk) {
+      // add data to postData chunk by chunk as we receive it
       postData += postDataChunk;
       console.log("Receive POST data chunk '" + postDataChunk + "'.");
     })
 
     request.addListener("end", function() {
+      // only pass request to router once all data is received
       route(handle, pathname, response, postData);
     });
   }
