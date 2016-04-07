@@ -3,7 +3,7 @@
 var http = require("http");
 var url  = require("url");
 
-function start(route) {
+function start(route, handle) {
   // the createServer function from the http module returns an object with
   // a listen function which takes a port number for our http server to listen
   // on. We did not have to chain the functions this way. We could have
@@ -23,8 +23,8 @@ function start(route) {
     var pathname = url.parse(request.url).pathname;
     console.log("Request for " + pathname + " received.");
 
-    route(pathname);
-    
+    route(handle, pathname);
+
     // 200 is the status code, and the second parameter is the content type of
     // the response
     response.writeHead(200, {"Content-Type": "text/plain"});
