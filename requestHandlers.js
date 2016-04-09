@@ -2,6 +2,8 @@
 // exec() executes a shell command
 //var exec = require("child_process").exec;
 
+var querystring = require("querystring");
+
 function start(response, postData) {
   console.log("Request handler 'start' was called.");
 
@@ -47,7 +49,8 @@ function start(response, postData) {
 function upload(response, postData) {
   console.log("Request handler 'upload' was called.");
   response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("You've sent: " + postData);
+  // only extract the text field from our queryString
+  response.write("You've sent: " + queryString.parse(postData).text);
   response.end();
 }
 
